@@ -10,5 +10,5 @@ This repository is a set of custom demo for PUN and related products
 
 ## Unity Packages
 
-You can find packages samples download in the [Packages](https://github.com/jeanfabre/Exitgames--Custom--Samples/blob/master/Packages/) folder
+You can find packages samples download in the [Packages](https://github.com/jeanfabre/Exitgames--Custom--Samples_U4/tree/master/Packages) folder
 
