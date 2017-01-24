@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class FriendsItem : MonoBehaviour {
 
 	[HideInInspector]
-	public string Name
+	public string FriendId
 	{
 		set{
 			NameLabel.text = value;

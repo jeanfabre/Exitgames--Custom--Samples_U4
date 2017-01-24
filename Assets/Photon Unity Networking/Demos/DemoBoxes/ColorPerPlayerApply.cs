@@ -1,6 +1,8 @@
 ﻿using Photon;
 using UnityEngine;
 
+using ExitGames.UtilityScripts;
+
 /// <summary>Sample script that uses ColorPerPlayer to apply it to an object's material color.</summary>
 public class ColorPerPlayerApply : PunBehaviour
 {
@@ -39,16 +41,6 @@ public class ColorPerPlayerApply : PunBehaviour
     }
 
 
-    /// <summary>ColorPerPlayer stores colors in Custom Player Properties. When they change, we check and re-apply the color of objects.</summary>
-    /// <param name="playerAndUpdatedProps">Info about which properties changed.</param>
-    public override void OnPhotonPlayerPropertiesChanged(object[] playerAndUpdatedProps)
-    {
-        // we could easily check if properties change for the owner of this photonView
-        // for simplicity of code, we just call ApplyColor()
-        this.ApplyColor();
-    }
-
-
     public void ApplyColor()
     {
         if (photonView.owner == null)
@@ -56,10 +48,6 @@ public class ColorPerPlayerApply : PunBehaviour
             return;
         }
 
-        if (photonView.owner.customProperties.ContainsKey(ColorPerPlayer.ColorProp))
-        {
-            int playersColorIndex = (int)photonView.owner.customProperties[ColorPerPlayer.ColorProp];
-            this.rendererComponent.material.color = colorPickerCache.Colors[playersColorIndex];
-        }
+		this.rendererComponent.material.color = colorPickerCache.Colors[photonView.owner.GetRoomIndex()];
     }
 }

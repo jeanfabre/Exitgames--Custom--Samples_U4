@@ -179,10 +179,10 @@ public class WorkerMenu : MonoBehaviour
             foreach (RoomInfo roomInfo in PhotonNetwork.GetRoomList())
             {
                 GUILayout.BeginHorizontal();
-                GUILayout.Label(roomInfo.name + " " + roomInfo.playerCount + "/" + roomInfo.maxPlayers);
+                GUILayout.Label(roomInfo.Name + " " + roomInfo.PlayerCount + "/" + roomInfo.MaxPlayers);
                 if (GUILayout.Button("Join", GUILayout.Width(150)))
                 {
-                    PhotonNetwork.JoinRoom(roomInfo.name);
+                    PhotonNetwork.JoinRoom(roomInfo.Name);
                 }
 
                 GUILayout.EndHorizontal();

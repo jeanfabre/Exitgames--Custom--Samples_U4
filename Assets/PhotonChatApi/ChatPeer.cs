@@ -24,19 +24,19 @@ namespace ExitGames.Client.Photon.Chat
     /// <summary>
     /// Provides basic operations of the Photon Chat server. This internal class is used by public ChatClient.
     /// </summary>
-    internal class ChatPeer : PhotonPeer
+    public class ChatPeer : PhotonPeer
     {
-	    /// <summary>Name Server Host Name for Photon Cloud. Without port and without any prefix.</summary>
-		public const string NameServerHost = "ns.exitgames.com";
+        /// <summary>Name Server Host Name for Photon Cloud. Without port and without any prefix.</summary>
+        public const string NameServerHost = "ns.exitgames.com";
 
-		/// <summary>Name Server for HTTP connections to the Photon Cloud. Includes prefix and port.</summary>
-		public const string NameServerHttp = "http://ns.exitgamescloud.com:80/photon/n";
+        /// <summary>Name Server for HTTP connections to the Photon Cloud. Includes prefix and port.</summary>
+        public const string NameServerHttp = "http://ns.exitgamescloud.com:80/photon/n";
 
-		/// <summary>Name Server port per protocol (the UDP port is different than TCP, etc).</summary>
-		private static readonly Dictionary<ConnectionProtocol, int> ProtocolToNameServerPort = new Dictionary<ConnectionProtocol, int>() { { ConnectionProtocol.Udp, 5058 }, { ConnectionProtocol.Tcp, 4533 }, { ConnectionProtocol.WebSocket, 9093 }, { ConnectionProtocol.WebSocketSecure, 19093 } }; //, { ConnectionProtocol.RHttp, 6063 } };
+        /// <summary>Name Server port per protocol (the UDP port is different than TCP, etc).</summary>
+        private static readonly Dictionary<ConnectionProtocol, int> ProtocolToNameServerPort = new Dictionary<ConnectionProtocol, int>() { { ConnectionProtocol.Udp, 5058 }, { ConnectionProtocol.Tcp, 4533 }, { ConnectionProtocol.WebSocket, 9093 }, { ConnectionProtocol.WebSocketSecure, 19093 } }; //, { ConnectionProtocol.RHttp, 6063 } };
 
-		/// <summary>Name Server Address for Photon Cloud (based on current protocol). You can use the default values and usually won't have to set this value.</summary>
-		public string NameServerAddress { get { return this.GetNameServerAddress(); } }
+        /// <summary>Name Server Address for Photon Cloud (based on current protocol). You can use the default values and usually won't have to set this value.</summary>
+        public string NameServerAddress { get { return this.GetNameServerAddress(); } }
 
         virtual internal bool IsProtocolSecure { get { return this.UsedProtocol == ConnectionProtocol.WebSocketSecure; } }
 
@@ -126,8 +126,12 @@ namespace ExitGames.Client.Photon.Chat
 
         public bool Connect()
         {
-            this.Listener.DebugReturn(DebugLevel.INFO, "Connecting to nameserver " + this.NameServerAddress);
-			return this.Connect(this.NameServerAddress, "NameServer");
+            if (this.DebugOut >= DebugLevel.INFO)
+            {
+                this.Listener.DebugReturn(DebugLevel.INFO, "Connecting to nameserver " + this.NameServerAddress);
+            }
+
+            return this.Connect(this.NameServerAddress, "NameServer");
         }
 
         public bool AuthenticateOnNameServer(string appId, string appVersion, string region, AuthenticationValues authValues)
@@ -188,6 +192,15 @@ namespace ExitGames.Client.Photon.Chat
 
         /// <summary>Authenticates users by their Facebook Account. Set auth values accordingly!</summary>
         Facebook = 2,
+
+        /// <summary>Authenticates users by their Oculus Account and token.</summary>
+        Oculus = 3,
+
+        /// <summary>Authenticates users by their PSN Account and token.</summary>
+        PlayStation = 4,
+
+        /// <summary>Authenticates users by their Xbox Account and XSTS token.</summary>
+        Xbox = 5,
 
         /// <summary>Disables custom authentification. Same as not providing any AuthenticationValues for connect (more precisely for: OpAuthenticate).</summary>
         None = byte.MaxValue

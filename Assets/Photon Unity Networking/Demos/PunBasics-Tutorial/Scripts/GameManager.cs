@@ -100,7 +100,7 @@ namespace ExitGames.Demos.DemoAnimator
 		/// <param name="other">Other.</param>
 		public void OnPhotonPlayerConnected( PhotonPlayer other  )
 		{
-			Debug.Log( "OnPhotonPlayerConnected() " + other.name ); // not seen if you're the player connecting
+			Debug.Log( "OnPhotonPlayerConnected() " + other.NickName); // not seen if you're the player connecting
 
 			if ( PhotonNetwork.isMasterClient ) 
 			{
@@ -116,7 +116,7 @@ namespace ExitGames.Demos.DemoAnimator
 		/// <param name="other">Other.</param>
 		public void OnPhotonPlayerDisconnected( PhotonPlayer other  )
 		{
-			Debug.Log( "OnPhotonPlayerDisconnected() " + other.name ); // seen when other disconnects
+			Debug.Log( "OnPhotonPlayerDisconnected() " + other.NickName ); // seen when other disconnects
 
 			if ( PhotonNetwork.isMasterClient ) 
 			{
@@ -159,9 +159,9 @@ namespace ExitGames.Demos.DemoAnimator
 				Debug.LogError( "PhotonNetwork : Trying to Load a level but we are not the master Client" );
 			}
 
-			Debug.Log( "PhotonNetwork : Loading Level : " + PhotonNetwork.room.playerCount ); 
+			Debug.Log( "PhotonNetwork : Loading Level : " + PhotonNetwork.room.PlayerCount ); 
 
-			PhotonNetwork.LoadLevel("PunBasics-Room for "+PhotonNetwork.room.playerCount);
+			PhotonNetwork.LoadLevel("PunBasics-Room for "+PhotonNetwork.room.PlayerCount);
 		}
 
 		#endregion

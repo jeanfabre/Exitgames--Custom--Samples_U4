@@ -53,7 +53,7 @@ public class RpsDemoConnect : PunBehaviour
     public override void OnConnectedToMaster()
     {
         // after connect 
-        this.UserId = PhotonNetwork.player.userId;
+        this.UserId = PhotonNetwork.player.UserId;
         ////Debug.Log("UserID " + this.UserId);
 
 
@@ -83,8 +83,8 @@ public class RpsDemoConnect : PunBehaviour
 
     public override void OnJoinedRoom()
     {
-		Debug.Log("Joined room: " + PhotonNetwork.room.name);
-        this.previousRoom = PhotonNetwork.room.name;
+		Debug.Log("Joined room: " + PhotonNetwork.room.Name);
+        this.previousRoom = PhotonNetwork.room.Name;
 
     }
 

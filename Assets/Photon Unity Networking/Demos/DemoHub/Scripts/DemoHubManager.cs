@@ -28,7 +28,7 @@ namespace ExitGames.Demos
 		public GameObject OpenSceneButton;
 		public GameObject OpenWebLinkButton;
 
-		string MainDemoWebLink = "http://j.mp/2eqHTQ3";
+        string MainDemoWebLink = "http://bit.ly/2f8OFu8";
 
 		struct DemoData
 		{
