@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -16,21 +16,25 @@ public class MenuManager : MonoBehaviour {
 	public GameObject MainChatPanel;
 	public InputField ChatMessage;
 
+	public bool debug;
+	
+	public void Connect(string userId) {
 
-	public void Connect() {
+		if (debug)	Debug.Log("MenuManager : Connect");
 		background.SetActive(true);
 		UserIdForm.SetActive(false);
 		ConnectingPanel.SetActive(true);
 		MainChatPanel.SetActive(false);
 
-		Connector.UserId = UserIdInputField.text;
-		PhotonNetwork.playerName = Connector.UserId;
+		Connector.UserId = userId;
+		Connector.NickName = userId;
 		Connector.Connect();
 	}
 
 	public void SendChatMessage()
 	{
-		Debug.Log("SendChatMessage "+ChatMessage.text);
+		if (debug)	Debug.Log("MenuManager: SendChatMessage "+ChatMessage.text);
+
 		PunChatClientBroker.ChatClient.PublishMessage(PhotonNetwork.room.Name,ChatMessage.text);
 	}
 
@@ -41,6 +45,7 @@ public class MenuManager : MonoBehaviour {
 	void Start () {
 		ConnectingPanel.SetActive(false);
 		UserIdForm.SetActive(true);
+		MainChatPanel.SetActive(false);
 	}
 
 	void OnEnable()
@@ -62,13 +67,14 @@ public class MenuManager : MonoBehaviour {
 
 	public void OnPhotonRandomJoinFailed()
 	{
-		PhotonNetwork.CreateRoom(null);
+		PhotonNetwork.CreateRoom(null,new RoomOptions(){PublishUserId=true},TypedLobby.Default);
 	}
 
 	public void OnJoinedRoom()
 	{
-		Debug.Log("OnJoinedRoom : "+PhotonNetwork.room.Name);
+		if (debug)	Debug.Log("MenuManager: OnJoinedRoom : "+PhotonNetwork.room.Name);
 
+		UserIdForm.SetActive(false);
 		background.SetActive(false);
 		MainChatPanel.SetActive(true);
 		
@@ -79,9 +85,11 @@ public class MenuManager : MonoBehaviour {
 
 	public void OnLeftRoom()
 	{
-		Debug.Log("OnLeftRoom");
+		if (debug) Debug.Log("MenuManager: OnLeftRoom");
 		background.SetActive(true);
 		MainChatPanel.SetActive(false);
+		UserIdForm.SetActive(true);
+
 		PunChatClientBroker.ChatClient.Unsubscribe(new string[]{PhotonNetwork.room.Name});
 	}
 
@@ -91,13 +99,15 @@ public class MenuManager : MonoBehaviour {
 	#region PunAndChatConnection Callbacks
 	void OnConnected()
 	{
+		if (debug)	Debug.Log("MenuManager: OnConnected");
 		ConnectingPanel.SetActive(false);
-
 		PhotonNetwork.JoinRandomRoom();
 	}
 
 	void OnDisconnected()
 	{
+		
+		if (debug)	Debug.Log("MenuManager: OnDisconnected");
 		background.SetActive(true);
 		ConnectingPanel.SetActive(false);
 		UserIdForm.SetActive(true);

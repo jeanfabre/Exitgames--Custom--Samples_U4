@@ -9,9 +9,6 @@ public class OnSubmit : UnityEvent<string> {}
 
 public class NamePickUiForm : MonoBehaviour
 {
-
-
-
     private const string UserNamePlayerPref = "NamePickUserName";
 
     public InputField UserNameInput;
