@@ -67,10 +67,6 @@ namespace ExitGames.Demos.DemoAnimator
 				Debug.LogError("<Color=Red><b>Missing</b></Color> loaderAnime Reference.",this);
 			}
 
-			// #NotImportant
-			// Force LogLevel
-			PhotonNetwork.logLevel = PhotonLogLevel.ErrorsOnly;
-
 			// #Critical
 			// we don't join the lobby. There is no need to join a lobby to get the list of rooms.
 			PhotonNetwork.autoJoinLobby = false;
@@ -115,6 +111,7 @@ namespace ExitGames.Demos.DemoAnimator
 				LogFeedback("Joining Room...");
 				// #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnPhotonRandomJoinFailed() and we'll create one.
 				PhotonNetwork.JoinRandomRoom();
+				PhotonNetwork.JoinRandomRoom(null,(byte)(2));
 			}else{
 
 				LogFeedback("Connecting...");

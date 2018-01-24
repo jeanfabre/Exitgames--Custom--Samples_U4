@@ -8,12 +8,12 @@ using System.Collections;
 public static class PhotonNetworkExtensions  {
 
 
-	public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation, int group,bool usePrefabPool = false)
+	public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation, byte group,bool usePrefabPool = false)
 	{
 		return Instantiate(prefabName, position, rotation, group, null,usePrefabPool);
 	}
 
-	public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation, int group,  object[] data, bool usePrefabPool = false)
+	public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation, byte group,  object[] data, bool usePrefabPool = false)
 	{
 		
 		IPunPrefabPool _prefabPool = null;

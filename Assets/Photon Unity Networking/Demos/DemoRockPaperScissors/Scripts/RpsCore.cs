@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
+using ExitGames.Client.Photon;
+
 // the Photon server assigns a ActorNumber (player.ID) to each player, beginning at 1
 // for this game, we don't mind the actual number
 // this game uses player 0 and 1, so clients need to figure out their number somehow
@@ -511,7 +513,7 @@ public class RpsCore : PunBehaviour, IPunTurnManagerCallbacks
 
     public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
     {
-        Debug.Log("Other player arrived");
+		Debug.Log("Other player arrived");
 
         if (PhotonNetwork.room.PlayerCount == 2)
         {
@@ -526,7 +528,7 @@ public class RpsCore : PunBehaviour, IPunTurnManagerCallbacks
 
     public override void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
     {
-        Debug.Log("Other player disconnected! isInactive: " + otherPlayer.IsInactive);
+		Debug.Log("Other player disconnected! "+otherPlayer.ToStringFull());
     }
 
 
